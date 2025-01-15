@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apis;
 use App\Http\Controllers\Controller;
 use App\Models\Candidats;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -110,6 +111,66 @@ class ApiCandidatesController extends Controller
         ], 200);
     }
 
+    public function updatePassword(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Veuillez vous reconnecter pour mener cette action.',
+            ], 401);
+        }
+        // $roles = [
+        //     'current' => 'required',
+        //     'password' => 'required',
+        //     'phone' => 'nullable|unique:users,telephone,' . $user->id,
+        //     'email' => 'nullable|email|unique:users,email,' . $user->id,
+        // ];
+
+        // $customMessages = [
+        //     'current.required' => __("messages.phoneUser"),
+        //     'password.required' => __("messages.emailRequired"),
+        // ];
+
+        $candidat = Candidats::findOrFail($request->id);
+
+        $rules = [
+            'current' => 'required',
+            'password' => 'required',
+        ];
+
+        $messages = [
+            'current.required' => "Veuillez saisir votre mot de passe actuel",
+            'password.required' => "Veuillez saisir votre nouveau mot de passe",
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->all(),
+            ], 422);
+        }
+
+        if (!Hash::check($request->current, $candidat->password_cand)) {
+            $candidat->password_cand = Hash::make($request->password);
+
+            if ($candidat->save()) {
+                // 200 ok, déconnecter le candidat pour qu'il se connecte de nouveau
+            return response()->json([
+                'message' => 'Votre mot de passe a été modifié',
+            ], 200);
+            } else {
+                return response()->json([
+                    'message' => "Prblème lors de la modification de votre mot de passe. Veuillez réessayer!!!",
+                ], 401);
+            }
+        } else {
+            return response()->json([
+                'message' => "L'ancien mot de passe correspond au nouveau mot de passe. Veuillez essayer un autre!!!",
+            ], 401);
+        }
+    }
+
     public function logout(Request $request)
     {
         // Supprimer l'utilisateur dont le token est envoyé
@@ -117,7 +178,6 @@ class ApiCandidatesController extends Controller
 
         // Supprimer le token qui est envoyé
         $request->user()->currentAccessToken()->delete();
-
 
         return response()->json([
             "message" => "Vous êtes déconencter"

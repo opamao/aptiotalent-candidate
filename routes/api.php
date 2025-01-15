@@ -18,4 +18,5 @@ Route::get('faqs', [ApiFeedbackController::class, 'faqs']);
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
     // Authetification candidate
     Route::post('logout', [ApiCandidatesController::class, 'logout']);
+    Route::post('updatepassword', [ApiCandidatesController::class, 'updatePassword']);
 });
