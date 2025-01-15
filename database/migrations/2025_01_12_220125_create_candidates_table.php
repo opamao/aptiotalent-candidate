@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('email_cand')->unique();
             $table->string('phone_cand', 50)->unique();
             $table->string('habitation_cand')->nullable();
-            $table->string('experience_an_cand')->nullable();
-            $table->string('experience_mois_cand')->nullable();
-            $table->string('salaire_cand')->nullable();
+            $table->integer('experience_an_cand')->default(0);
+            $table->integer('experience_mois_cand')->default(0);
+            $table->integer('salaire_cand')->default(0);
             $table->string('password_cand');
             $table->integer('status_cand')->default(1)->comment('1 = active, 2 = inactive');
             $table->timestamps();

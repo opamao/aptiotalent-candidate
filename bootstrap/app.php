@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Middleware\LanguageMiddleware;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,5 +21,17 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // $exceptions->handler(AuthenticationException::class, function () {
+        //     return response()->json([
+        //         'message' => 'Non authentifié.',
+        //         'status' => false
+        //     ], 401);
+        // });
+
+        $exceptions->renderable(function (NotFoundHttpException $e) {
+            return response()->json([
+                'message' => 'Non authentifié.',
+                'status' => false
+            ], 401);
+        });
     })->create();
