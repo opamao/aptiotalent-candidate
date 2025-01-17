@@ -30,6 +30,9 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
     Route::post('skillprofile', [ApiProfileController::class, 'skillProfile']);
     Route::post('cvprofile', [ApiProfileController::class, 'cvProfile']);
 
+    Route::get('skillprofile/{id}/get', [ApiProfileController::class, 'getSkillProfile']);
+    Route::get('profile/{id}/get', [ApiProfileController::class, 'getInfoProfile']);
+
     //FeedBack
     Route::post('feedback', [ApiFeedbackController::class, 'feedback']);
 });

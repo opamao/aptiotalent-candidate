@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('emplois', function (Blueprint $table) {
             $table->uuid('idemp')->primary();
             $table->string('entreprise_actuelle', 20);
-            $table->string('experience_an')->default(0);
-            $table->string('experience_mois')->default(0);
+            $table->integer('experience_an')->default(0);
+            $table->integer('experience_mois')->default(0);
             $table->string('nom_entreprise');
             $table->string('date_entree');
             $table->integer('salaire_annuel');
             $table->string('preavis');
+            $table->string('titre_poste');
             $table->uuid('typeemploi_id');
             $table->foreign('typeemploi_id')->references('idtyemp')->on('type_emploi');
             $table->uuid('candidat_id');

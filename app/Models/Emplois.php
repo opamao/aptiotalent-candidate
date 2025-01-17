@@ -22,6 +22,7 @@ class Emplois extends Model
         'date_entree',
         'salaire_annuel',
         'preavis',
+        'titre_poste',
         'typeemploi_id',
         'candidat_id',
     ];
