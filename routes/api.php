@@ -19,9 +19,10 @@ Route::get('faqs', [ApiFeedbackController::class, 'faqs']);
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
     // Authetification candidate
     Route::post('logout', [ApiCandidatesController::class, 'logout']);
+    Route::post('loginretry', [ApiCandidatesController::class, 'retryConnexion']);
     Route::post('updatepassword', [ApiCandidatesController::class, 'updatePassword']);
 
-    //Profile
+    //Profile post
     Route::post('resumeprofile', [ApiProfileController::class, 'resumeProfile']);
     Route::post('infoprofile', [ApiProfileController::class, 'infoProProfile']);
     Route::post('emploiprofile', [ApiProfileController::class, 'emploiProfile']);
@@ -29,7 +30,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
     Route::post('projectprofile', [ApiProfileController::class, 'projectProfile']);
     Route::post('skillprofile', [ApiProfileController::class, 'skillProfile']);
     Route::post('cvprofile', [ApiProfileController::class, 'cvProfile']);
-
+    //profile get
     Route::get('skillprofile/{id}/get', [ApiProfileController::class, 'getSkillProfile']);
     Route::get('profile/{id}/get', [ApiProfileController::class, 'getInfoProfile']);
 

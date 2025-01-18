@@ -10,6 +10,7 @@ use App\Models\Emplois;
 use App\Models\InfoProfs;
 use App\Models\Projects;
 use App\Models\Resumes;
+use App\Models\UpdateCV;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -397,6 +398,80 @@ class ApiProfileController extends Controller
         return response()->json($skills, 200);
     }
 
+    public function cvProfile(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Veuillez vous reconnecter pour mener cette action.',
+            ], 401);
+        }
+
+        $rules = [
+            'cv' => 'required',
+            'candidat' => 'required',
+        ];
+
+        $messages = [
+            'cv.required' => "Veuillez sélectionner votre CV.",
+            'candidat.required' => "Votre session a expiré. Veuillez vous reconnecter.",
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->all(),
+            ], 422);
+        }
+
+        $cvFile = UpdateCV::where('candidat_id', '=', $request->candidat)->first();
+
+        if ($cvFile) {
+
+            $imagePath = public_path('candidatscv/' . $cvFile->fichier_cv);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            $fileNameWithExtension = $request->file('cv')->getClientOriginalName();
+            $cvCandidat = 'cv_candidat_' . time() . '_' . '.' . $fileNameWithExtension;
+            $request->file('cv')->move(public_path('/candidatscv'), $cvCandidat);
+
+            $cvFile->fichier_cv = $cvCandidat;
+
+            if ($cvFile->save()) {
+                return response()->json([
+                    'message' => 'Votre CV a été mise à jour.',
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => "Prblème lors de la mise à jour de votre CV. Veuillez réessayer!!!",
+                ], 401);
+            }
+        } else {
+
+            $fileNameWithExtension = $request->file('cv')->getClientOriginalName();
+            $cvCandidat = 'cv_candidat_' . time() . '_' . '.' . $fileNameWithExtension;
+            $request->file('cv')->move(public_path('/candidatscv'), $cvCandidat);
+
+            $fileCv = new UpdateCV();
+            $fileCv->idcv = str::uuid();
+            $fileCv->fichier_cv = $cvCandidat;
+            $fileCv->candidat_id = $request->candidat;
+
+            if ($fileCv->save()) {
+                return response()->json([
+                    'message' => "Votre CV a été ajojté"
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => "Problème lors de l'ajout de votre CV. Veuillez réessayer!",
+                ], 401);
+            }
+        }
+    }
+
     public function getInfoProfile($id)
     {
         if (!Auth::check()) {
@@ -406,16 +481,95 @@ class ApiProfileController extends Controller
             ], 401);
         }
 
-        $candidat = Candidats::leftJoin('competences_cles', 'candidates.idcandidat', '=', 'competences_cles.candidat_id')
-            ->leftJoin('educations', 'candidates.idcandidat', '=', 'educations.candidat_id')
-            ->leftJoin('projects', 'candidates.idcandidat', '=', 'projects.candidat_id')
-            ->leftJoin('emplois', 'candidates.idcandidat', '=', 'emplois.candidat_id')
-            ->leftJoin('resumes', 'candidates.idcandidat', '=', 'resumes.candidat_id')
-            ->leftJoin('update_cv', 'candidates.idcandidat', '=', 'update_cv.candidat_id')
-            ->leftJoin('info_prof', 'candidates.idcandidat', '=', 'info_prof.candidat_id')
-            ->where('candidates.idcandidat', '=', $id)
-            ->get();
+        $candidat = Candidats::where('idcandidat', '=', $id)
+            ->selectRaw(
+                '
+            idcandidat,
+            IFNULL(photo_cand, "") as photo,
+            sexe_cand as sexe,
+            nom_cand as nom,
+            prenom_cand as prenom,
+            email_cand as email,
+            phone_cand as phone,
+            IFNULL(habitation_cand, "") as habitation,
+            experience_an_cand as experience_an,
+            experience_mois_cand as experience_mois,
+            salaire_cand as salaire,
+            status_cand as statut
+            '
+            )
+            ->first();
+        // $candidat->transform(function ($item) {
+        //     $item->photo = asset('candidats/' . $item->photo);
+        //     return $item;
+        // });
+        $candidat->photo = asset('candidats/' . $candidat->photo);
 
-        return response()->json($candidat, 200);
+        $competences = Competences::where('candidat_id', '=', $candidat->idcandidat)
+            ->pluck('libelle_comp')
+            ->first();
+        $educations = Educations::where('candidat_id', '=', $candidat->idcandidat)
+            ->select(
+                'etudie',
+                'nom_etablissement',
+                'titre_formation',
+                'debut_formation_an',
+                'debut_formation_mois',
+                'fin_formation_an',
+                'fin_formation_mois',
+            )
+            ->get();
+        $emplois = Emplois::join('type_emploi', 'emplois.typeemploi_id', '=', 'type_emploi.idtyemp')
+            ->where('candidat_id', '=', $candidat->idcandidat)
+            ->selectRaw(
+                'emplois.idemp,
+                emplois.entreprise_actuelle,
+                emplois.experience_an,
+                emplois.experience_mois,
+                emplois.nom_entreprise,
+                emplois.date_entree,
+                emplois.salaire_annuel,
+                IFNULL(emplois.preavis, " ") as preavis,
+                emplois.titre_poste,
+                type_emploi.libelle_tyemp'
+            )
+            ->get();
+        $infopros = InfoProfs::where('candidat_id', '=', $candidat->idcandidat)
+            ->select(
+                'secteur_info AS secteur',
+                'departement_info AS departement',
+                'categorie_info AS categorie',
+                'fonction_info AS fonction',
+            )
+            ->first();
+        $projects = Projects::where('candidat_id', '=', $candidat->idcandidat)
+            ->selectRaw(
+                'titre_projet,
+            role_projet,
+            IFNULL(lien_projet, "") as lien,
+            sur_projet,
+            debut_projet,
+            fin_projet,
+            description_projet',
+            )
+            ->get();
+        $resumes = Resumes::where('candidat_id', '=', $candidat->idcandidat)
+            ->pluck('libelle_resume')
+            ->first();
+        $cv = UpdateCV::where('candidat_id', '=', $candidat->idcandidat)
+            ->pluck('fichier_cv')
+            ->first();
+        $cv = asset('candidatscv/' . $cv);
+
+        return response()->json([
+            'profile' => $candidat,
+            'competences' => $competences,
+            'educations' => $educations,
+            'emplois' => $emplois,
+            'infopros' => $infopros,
+            'projects' => $projects,
+            'resumes' => $resumes,
+            'cv' => $cv ?? "",
+        ], 200);
     }
 }
