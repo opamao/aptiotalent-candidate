@@ -145,6 +145,7 @@ class ApiCandidatesController extends Controller
                 ], 303);
             } else {
                 $token = $candidat->createToken($candidat->nom_cand . '-AuthToken')->plainTextToken;
+                $candidat->photo_cand = asset('candidats/' . $candidat->photo_cand);
                 return response()->json([
                     'candidat' => $candidat,
                     'access_token' => $token,
@@ -161,6 +162,7 @@ class ApiCandidatesController extends Controller
         $candidat = Candidats::where('email_cand', $request->login)
             ->orWhere('phone_cand', $request->login)
             ->first();
+        $candidat->photo_cand = asset('candidats/' . $candidat->photo_cand);
 
         $token = $candidat->createToken($candidat->nom_cand . '-AuthToken')->plainTextToken;
         return response()->json([
