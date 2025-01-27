@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('salaire_cand')->default(0);
             $table->string('password_cand');
             $table->integer('status_cand')->default(1)->comment('1 = active, 2 = inactive');
+            $table->integer('otp_cand')->nullable();
             $table->timestamps();
         });
     }

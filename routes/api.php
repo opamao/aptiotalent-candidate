@@ -12,6 +12,7 @@ Route::get('/user', function (Request $request) {
 
 Route::post('register', [ApiCandidatesController::class, 'register']);
 Route::post('login', [ApiCandidatesController::class, 'login']);
+Route::post('verifemail', [ApiCandidatesController::class, 'emailverif']);
 
 //Faqs
 Route::get('faqs', [ApiFeedbackController::class, 'faqs']);

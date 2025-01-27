@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Apis;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OtpMail;
 use App\Models\Candidats;
 use App\Models\PersonalToken;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -127,8 +130,8 @@ class ApiCandidatesController extends Controller
             ], 422);
         }
 
-        $candidat = Candidats::where('email_cand', $request->login)
-            ->orWhere('phone_cand', $request->login)
+        $candidat = Candidats::where('email_cand', '=', $request->login)
+            ->orWhere('phone_cand', '=', $request->login)
             ->first();
 
         if (!$candidat || !Hash::check($request->password, $candidat->password_cand)) {
@@ -150,6 +153,55 @@ class ApiCandidatesController extends Controller
                     'candidat' => $candidat,
                     'access_token' => $token,
                 ], 200);
+            }
+        }
+    }
+
+    public function emailverif(Request $request)
+    {
+        $roles = [
+            'login' => 'required',
+        ];
+        $custumMessages = [
+            'login.required' => 'Veuillez saisir votre adresse email pour réinitialliser votre mot de passe.',
+        ];
+
+        $validator = Validator::make($request->all(), $roles, $custumMessages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->all(),
+            ], 422);
+        }
+
+        $candidat = Candidats::where('email_cand', '=', $request->login)
+            ->first();
+
+        if (!$candidat) {
+            return response()->json([
+                'message' => 'Votre adresse email est incorrect. Veuillez vérifier votre email !'
+            ], 401);
+        } else {
+            $otp = rand(1000, 9999);
+            //$candidat->otp_cand = $otp;
+
+            if ($otp == $otp) {
+                // Envoyer l'email avec le code OTP
+                try {
+                    Mail::to($request->login)->send(new OtpMail($otp));
+                    return response()->json([
+                        'message' => 'Un code OTP a été envoyé à votre adresse email. Veuillez vérifier vos emails.',
+                    ], 200);
+                } catch (Exception $e) {
+                    return response()->json([
+                        'message' => 'Une erreur est survenue lors de l\'envoi de l\'email. Veuillez réessayer plus tard.',
+                        'error' => $e->getMessage()
+                    ], 500);
+                }
+            } else {
+                return response()->json([
+                    'message' => 'Impossible de générer l\'OTP. Veuillez revenir plus tard.'
+                ], 401);
             }
         }
     }
@@ -221,7 +273,7 @@ class ApiCandidatesController extends Controller
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => "Prblème lors de la modification de votre mot de passe. Veuillez réessayer!!!",
+                    'message' => "Problème lors de la modification de votre mot de passe. Veuillez réessayer!!!",
                 ], 401);
             }
         } else {

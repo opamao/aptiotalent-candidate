@@ -28,6 +28,7 @@ class Candidats extends Authenticatable
         'salaire_cand',
         'password_cand',
         'status_cand',
+        'otp_cand',
     ];
 
     protected $hidden = [
