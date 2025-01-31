@@ -13,7 +13,7 @@
     <p>Cordialement,</p>
     <br>
     <br>
-    <p><strong>L'équipe AptioTalent</strong></p>
+    <p><strong><em>L'équipe AptioTalent</em></strong></p>
 </body>
 
 </html>

@@ -157,13 +157,13 @@ class ApiCandidatesController extends Controller
         }
     }
 
-    public function emailverif(Request $request)
+    public function emailVerif(Request $request)
     {
         $roles = [
             'login' => 'required',
         ];
         $custumMessages = [
-            'login.required' => 'Veuillez saisir votre adresse email pour réinitialliser votre mot de passe.',
+            'login.required' => 'Veuillez saisir votre adresse email pour réinitialiser votre mot de passe.',
         ];
 
         $validator = Validator::make($request->all(), $roles, $custumMessages);
@@ -183,17 +183,18 @@ class ApiCandidatesController extends Controller
             ], 401);
         } else {
             $otp = rand(1000, 9999);
-            //$candidat->otp_cand = $otp;
+            $candidat->otp_cand = $otp;
 
-            if ($otp == $otp) {
+            if ($candidat->save()) {
                 // Envoyer l'email avec le code OTP
                 try {
                     Mail::to($request->login)->send(new OtpMail($otp));
                     return response()->json([
-                        'message' => 'Un code OTP a été envoyé à votre adresse email. Veuillez vérifier vos emails.',
+                        'status' => true,
                     ], 200);
                 } catch (Exception $e) {
                     return response()->json([
+                        'status' => false,
                         'message' => 'Une erreur est survenue lors de l\'envoi de l\'email. Veuillez réessayer plus tard.',
                         'error' => $e->getMessage()
                     ], 500);
@@ -201,6 +202,86 @@ class ApiCandidatesController extends Controller
             } else {
                 return response()->json([
                     'message' => 'Impossible de générer l\'OTP. Veuillez revenir plus tard.'
+                ], 401);
+            }
+        }
+    }
+
+    public function checkCode(Request $request)
+    {
+        $roles = [
+            'login' => 'required',
+            'code' => 'required',
+        ];
+        $custumMessages = [
+            'login.required' => 'Impossible de récuperer votre adresse email pour terminer la vérification.',
+            'code.required' => 'Veuillez saisir le code OTP pour vérification.',
+        ];
+
+        $validator = Validator::make($request->all(), $roles, $custumMessages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->all(),
+            ], 422);
+        }
+
+        $candidat = Candidats::where('email_cand', '=', $request->login)
+            ->where('otp_cand', '=', $request->code)
+            ->first();
+
+        if (!$candidat) {
+            return response()->json([
+                'message' => 'Impossible de vérifier votre OTP. Veuillez réessayer.'
+            ], 401);
+        } else {
+            $candidat->otp_cand = null;
+            if ($candidat->save()) {
+                return response()->json([
+                    'status' => true,
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => 'Impossible de valider votre OTP. Veuillez réessayer !.'
+                ], 401);
+            }
+        }
+    }
+    public function newPassword(Request $request)
+    {
+        $rules = [
+            'login' => 'required',
+            'newpassword' => 'required',
+        ];
+
+        $messages = [
+            'login.required' => "Impossible de récuperer votre adresse email.",
+            'newpassword.required' => "Veuillez saisir votre nouveau mot de passe.",
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->all(),
+            ], 422);
+        }
+
+        $candidat = Candidats::where('email_cand', '=', $request->login)
+            ->first();
+        if (!$candidat) {
+            return response()->json([
+                'message' => 'Impossible de réinitialiser votre mot de passe. Veuillez réessayer.'
+            ], 401);
+        } else {
+            $candidat->password_cand = Hash::make($request->newpassword);
+            if ($candidat->save()) {
+                return response()->json([
+                    'message' => 'Votre mot de passe a été modifié. Vous pouvez maintenant vous connecter.',
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => "Problème lors de la réinitialisation de votre mot de passe. Veuillez réessayer!!!",
                 ], 401);
             }
         }
