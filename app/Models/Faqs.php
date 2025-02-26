@@ -15,8 +15,8 @@ class Faqs extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'title_faq',
-        'contenu_faq',
+        'questions',
+        'answers',
     ];
 
     protected $table = 'faqs';

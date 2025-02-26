@@ -53,7 +53,7 @@
                     <div class="col-lg-7 col-md-12 col-sm-12">
                         <div class="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap">
                             <div class="col-md-7 mx-auto vh-100">
-                                <form action="{{ url('admin-dashboard') }}" class="vh-100">
+                                <form action="{{ url('employee-dashboard') }}" class="vh-100">
                                     @csrf
                                     <div class="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
                                         <div class=" mx-auto mb-5 text-center">
@@ -112,37 +112,6 @@
                                                         {{ __('messages.create_account') }}
                                                     </a>
                                                 </h6>
-                                            </div>
-                                            <div class="login-or">
-                                                <span class="span-or">{{ __('messages.or') }}</span>
-                                            </div>
-                                            <div class="mt-2">
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <div class="text-center me-2 flex-fill">
-                                                        <a href="javascript:void(0);"
-                                                            class="br-10 p-2 btn btn-info d-flex align-items-center justify-content-center">
-                                                            <img class="img-fluid m-1"
-                                                                src="{{ URL::asset('') }}assets/img/icons/facebook-logo.svg"
-                                                                alt="Facebook">
-                                                        </a>
-                                                    </div>
-                                                    <div class="text-center me-2 flex-fill">
-                                                        <a href="javascript:void(0);"
-                                                            class="br-10 p-2 btn btn-outline-light border d-flex align-items-center justify-content-center">
-                                                            <img class="img-fluid m-1"
-                                                                src="{{ URL::asset('') }}assets/img/icons/google-logo.svg"
-                                                                alt="Facebook">
-                                                        </a>
-                                                    </div>
-                                                    <div class="text-center flex-fill">
-                                                        <a href="javascript:void(0);"
-                                                            class="bg-dark br-10 p-2 btn btn-dark d-flex align-items-center justify-content-center">
-                                                            <img class="img-fluid m-1"
-                                                                src="{{ URL::asset('') }}assets/img/icons/apple-logo.svg"
-                                                                alt="Apple">
-                                                        </a>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         @include('auth.footer')
