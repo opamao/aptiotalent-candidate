@@ -1,5 +1,5 @@
 @extends('layouts.master', [
-    'title' => 'Profile settings',
+    'title' => 'Paramètre de profil',
 ])
 @push('csss')
     <!-- Select2 CSS -->
@@ -46,16 +46,16 @@
         <!-- Breadcrumb -->
         <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
             <div class="my-auto mb-2">
-                <h2 class="mb-1">Settings</h2>
+                <h2 class="mb-1">Paramètre</h2>
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item">
-                            <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                            <a href="{{ url('employee-dashboard') }}"><i class="ti ti-smart-home"></i></a>
                         </li>
                         <li class="breadcrumb-item">
                             Administration
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                        <li class="breadcrumb-item active" aria-current="page">Paramètres</li>
                     </ol>
                 </nav>
             </div>
@@ -70,27 +70,36 @@
 
         <ul class="nav nav-tabs nav-tabs-solid bg-transparent border-bottom mb-3">
             <li class="nav-item">
-                <a class="nav-link active" href="profile-settings.html"><i class="ti ti-settings me-2"></i>General
-                    Settings</a>
+                <a class="nav-link active" href="{{ url('profile-settings') }}"><i class="ti ti-settings me-2"></i>Paramètre</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="bussiness-settings.html"><i class="ti ti-world-cog me-2"></i>Website Settings</a>
+                <a class="nav-link" href="bussiness-settings.html"><i class="ti ti-world-cog me-2"></i>Détail basique</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="salary-settings.html"><i class="ti ti-device-ipad-horizontal-cog me-2"></i>App
-                    Settings</a>
+                <a class="nav-link" href="salary-settings.html"><i class="ti ti-device-ipad-horizontal-cog me-2"></i>Résumé profil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="email-settings.html"><i class="ti ti-server-cog me-2"></i>System
-                    Settings</a>
+                <a class="nav-link" href="email-settings.html"><i class="ti ti-server-cog me-2"></i>Infos professionnelle</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="payment-gateways.html"><i class="ti ti-settings-dollar me-2"></i>Financial
-                    Settings</a>
+                <a class="nav-link" href="payment-gateways.html"><i class="ti ti-settings-dollar me-2"></i>Emplois
+                    </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="custom-css.html"><i class="ti ti-settings-2 me-2"></i>Other
-                    Settings</a>
+                <a class="nav-link" href="custom-css.html"><i class="ti ti-settings-2 me-2"></i>Éducation
+                    </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="custom-css.html"><i class="ti ti-settings-2 me-2"></i>Projets
+                    </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="custom-css.html"><i class="ti ti-settings-2 me-2"></i>Compétences clés
+                    </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="custom-css.html"><i class="ti ti-settings-2 me-2"></i>CV (Curriculum Vitae)
+                    </a>
             </li>
         </ul>
         <div class="row">
@@ -106,8 +115,6 @@
                                 Settings</a>
                             <a href="notification-settings.html"
                                 class="d-inline-flex align-items-center rounded py-2 px-3">Notifications</a>
-                            <a href="connected-apps.html"
-                                class="d-inline-flex align-items-center rounded py-2 px-3">Connected Apps</a>
                         </div>
                     </div>
                 </div>

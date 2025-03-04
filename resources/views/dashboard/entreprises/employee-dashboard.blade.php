@@ -71,59 +71,22 @@
         <!-- Breadcrumb -->
         <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
             <div class="my-auto mb-2">
-                <h2 class="mb-1">Employee Dashboard</h2>
+                <h2 class="mb-1">Mon tableau de bord</h2>
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item">
-                            <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                            <a href="{{ url('employee-dashboard') }}"><i class="ti ti-smart-home"></i></a>
                         </li>
                         <li class="breadcrumb-item">
-                            Dashboard
+                            Tableau de bord
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Employee Dashboard</li>
+                        <li class="breadcrumb-item active" aria-current="page">Mon tableau de bord</li>
                     </ol>
                 </nav>
-            </div>
-            <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
-                <div class="me-2 mb-2">
-                    <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="ti ti-file-export me-1"></i>Export
-                        </a>
-                        <ul class="dropdown-menu  dropdown-menu-end p-3">
-                            <li>
-                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
-                                        class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
-                                        class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="input-icon w-120 position-relative mb-2">
-                    <span class="input-icon-addon">
-                        <i class="ti ti-calendar text-gray-9"></i>
-                    </span>
-                    <input type="text" class="form-control datetimepicker" value="15 Apr 2025">
-                </div>
-                <div class="ms-2 head-icons">
-                    <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                        data-bs-original-title="Collapse" id="collapse-header">
-                        <i class="ti ti-chevrons-up"></i>
-                    </a>
-                </div>
             </div>
         </div>
         <!-- /Breadcrumb -->
 
-        <div class="alert bg-secondary-transparent alert-dismissible fade show mb-4">
-            Your Leave Request on“24th April 2024”has been Approved!!!
-            <button type="button" class="btn-close fs-14" data-bs-dismiss="alert" aria-label="Close"><i
-                    class="ti ti-x"></i></button>
-        </div>
         <div class="row">
             <div class="col-xl-4 d-flex">
                 <div class="card position-relative flex-fill">
@@ -320,204 +283,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-4 d-flex">
-                <div class="card flex-fill border-primary attendance-bg">
-                    <div class="card-body">
-                        <div class="mb-4 text-center">
-                            <h6 class="fw-medium text-gray-5 mb-1">Attendance</h6>
-                            <h4>08:35 AM, 11 Mar 2025</h4>
-                        </div>
-                        <div class="attendance-circle-progress attendance-progress mx-auto mb-3" data-value='65'>
-                            <span class="progress-left">
-                                <span class="progress-bar border-success"></span>
-                            </span>
-                            <span class="progress-right">
-                                <span class="progress-bar border-success"></span>
-                            </span>
-                            <div class="total-work-hours text-center w-100">
-                                <span class="fs-13 d-block mb-1">Total Hours</span>
-                                <h6>5:45:32</h6>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="badge badge-dark badge-md mb-3">Production : 3.45 hrs</div>
-                            <h6 class="fw-medium d-flex align-items-center justify-content-center mb-4">
-                                <i class="ti ti-fingerprint text-primary me-1"></i>
-                                Punch In at 10.00 AM
-                            </h6>
-                            <a href="#" class="btn btn-primary w-100">Punch Out</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-8 d-flex">
-                <div class="row flex-fill">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="border-bottom mb-3 pb-2">
-                                    <span class="avatar avatar-sm bg-primary mb-2"><i class="ti ti-clock-stop"></i></span>
-                                    <h2 class="mb-2">8.36 / <span class="fs-20 text-gray-5"> 9</span></h2>
-                                    <p class="fw-medium text-truncate">Total Hours Today</p>
-                                </div>
-                                <div>
-                                    <p class="d-flex align-items-center fs-13">
-                                        <span class="avatar avatar-xs rounded-circle bg-success flex-shrink-0 me-2">
-                                            <i class="ti ti-arrow-up fs-12"></i>
-                                        </span>
-                                        <span>5% This Week</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="border-bottom mb-3 pb-2">
-                                    <span class="avatar avatar-sm bg-dark mb-2"><i class="ti ti-clock-up"></i></span>
-                                    <h2 class="mb-2">10 / <span class="fs-20 text-gray-5"> 40</span></h2>
-                                    <p class="fw-medium text-truncate">Total Hours Week</p>
-                                </div>
-                                <div>
-                                    <p class="d-flex align-items-center fs-13">
-                                        <span class="avatar avatar-xs rounded-circle bg-success flex-shrink-0 me-2">
-                                            <i class="ti ti-arrow-up fs-12"></i>
-                                        </span>
-                                        <span>7% Last Week</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="border-bottom mb-3 pb-2">
-                                    <span class="avatar avatar-sm bg-info mb-2"><i class="ti ti-calendar-up"></i></span>
-                                    <h2 class="mb-2">75 / <span class="fs-20 text-gray-5"> 98</span></h2>
-                                    <p class="fw-medium text-truncate">Total Hours Month</p>
-                                </div>
-                                <div>
-                                    <p class="d-flex align-items-center fs-13 text-truncate">
-                                        <span class="avatar avatar-xs rounded-circle bg-danger flex-shrink-0 me-2">
-                                            <i class="ti ti-arrow-down fs-12"></i>
-                                        </span>
-                                        <span>8% Last Month</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="border-bottom mb-3 pb-2">
-                                    <span class="avatar avatar-sm bg-pink mb-2"><i class="ti ti-calendar-star"></i></span>
-                                    <h2 class="mb-2">16 / <span class="fs-20 text-gray-5"> 28</span></h2>
-                                    <p class="fw-medium text-truncate">Overtime this Month</p>
-                                </div>
-                                <div>
-                                    <p class="d-flex align-items-center fs-13 text-truncate">
-                                        <span class="avatar avatar-xs rounded-circle bg-danger flex-shrink-0 me-2">
-                                            <i class="ti ti-arrow-down fs-12"></i>
-                                        </span>
-                                        <span>6% Last Month</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-3">
-                                        <div class="mb-4">
-                                            <p class="d-flex align-items-center mb-1"><i
-                                                    class="ti ti-point-filled text-dark-transparent me-1"></i>Total Working
-                                                hours</p>
-                                            <h3>12h 36m</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3">
-                                        <div class="mb-4">
-                                            <p class="d-flex align-items-center mb-1"><i
-                                                    class="ti ti-point-filled text-success me-1"></i>Productive Hours</p>
-                                            <h3>08h 36m</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3">
-                                        <div class="mb-4">
-                                            <p class="d-flex align-items-center mb-1"><i
-                                                    class="ti ti-point-filled text-warning me-1"></i>Break hours</p>
-                                            <h3>22m 15s</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3">
-                                        <div class="mb-4">
-                                            <p class="d-flex align-items-center mb-1"><i
-                                                    class="ti ti-point-filled text-info me-1"></i>Overtime</p>
-                                            <h3>02h 15m</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="progress bg-transparent-dark mb-3" style="height: 24px;">
-                                            <div class="progress-bar bg-white rounded" role="progressbar"
-                                                style="width: 18%;"></div>
-                                            <div class="progress-bar bg-success rounded me-2" role="progressbar"
-                                                style="width: 18%;"></div>
-                                            <div class="progress-bar bg-warning rounded me-2" role="progressbar"
-                                                style="width: 5%;"></div>
-                                            <div class="progress-bar bg-success rounded me-2" role="progressbar"
-                                                style="width: 28%;"></div>
-                                            <div class="progress-bar bg-warning rounded me-2" role="progressbar"
-                                                style="width: 17%;"></div>
-                                            <div class="progress-bar bg-success rounded me-2" role="progressbar"
-                                                style="width: 22%;"></div>
-                                            <div class="progress-bar bg-warning rounded me-2" role="progressbar"
-                                                style="width: 5%;"></div>
-                                            <div class="progress-bar bg-info rounded me-2" role="progressbar"
-                                                style="width: 3%;"></div>
-                                            <div class="progress-bar bg-info rounded" role="progressbar"
-                                                style="width: 2%;"></div>
-                                            <div class="progress-bar bg-white rounded" role="progressbar"
-                                                style="width: 18%;"></div>
-                                        </div>
 
-                                    </div>
-                                    <div class="co-md-12">
-                                        <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-2">
-                                            <span class="fs-10">06:00</span>
-                                            <span class="fs-10">07:00</span>
-                                            <span class="fs-10">08:00</span>
-                                            <span class="fs-10">09:00</span>
-                                            <span class="fs-10">10:00</span>
-                                            <span class="fs-10">11:00</span>
-                                            <span class="fs-10">12:00</span>
-                                            <span class="fs-10">01:00</span>
-                                            <span class="fs-10">02:00</span>
-                                            <span class="fs-10">03:00</span>
-                                            <span class="fs-10">04:00</span>
-                                            <span class="fs-10">05:00</span>
-                                            <span class="fs-10">06:00</span>
-                                            <span class="fs-10">07:00</span>
-                                            <span class="fs-10">08:00</span>
-                                            <span class="fs-10">09:00</span>
-                                            <span class="fs-10">10:00</span>
-                                            <span class="fs-10">11:00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-xl-6 d-flex">
                 <div class="card flex-fill">
@@ -1275,80 +1041,6 @@
                                         class="ti ti-mail-bolt fs-16"></i></a>
                                 <a href="#" class="btn btn-light btn-icon btn-sm"><i
                                         class="ti ti-brand-hipchat fs-16"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 d-flex">
-                <div class="card flex-fill">
-                    <div class="card-header">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <h5>Notifications</h5>
-                            <div>
-                                <a href="#" class="btn btn-light btn-sm">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex align-items-start mb-4">
-                            <a href="javascript:void(0);" class="avatar flex-shrink-0">
-                                <img src="assets/img/users/user-27.jpg" class="rounded-circle border border-2"
-                                    alt="img">
-                            </a>
-                            <div class="ms-2">
-                                <h6 class="fs-14 fw-medium text-truncate mb-1">Lex Murphy requested access to UNIX </h6>
-                                <p class="fs-13 mb-2">Today at 9:42 AM</p>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="avatar avatar-sm border flex-shrink-0 me-2"><img
-                                            src="assets/img/social/pdf-icon.svg" class="w-auto h-auto"
-                                            alt="Img"></a>
-                                    <h6 class="fw-normal"><a href="#">EY_review.pdf</a></h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start mb-4">
-                            <a href="javascript:void(0);" class="avatar flex-shrink-0">
-                                <img src="assets/img/users/user-28.jpg" class="rounded-circle border border-2"
-                                    alt="img">
-                            </a>
-                            <div class="ms-2">
-                                <h6 class="fs-14 fw-medium text-truncate mb-1">Lex Murphy requested access to UNIX </h6>
-                                <p class="fs-13 mb-0">Today at 10:00 AM</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start mb-4">
-                            <a href="javascript:void(0);" class="avatar flex-shrink-0">
-                                <img src="assets/img/users/user-29.jpg" class="rounded-circle border border-2"
-                                    alt="img">
-                            </a>
-                            <div class="ms-2">
-                                <h6 class="fs-14 fw-medium text-truncate mb-1">Lex Murphy requested access to UNIX </h6>
-                                <p class="fs-13 mb-2">Today at 10:50 AM</p>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-primary btn-sm me-2">Approve</a>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Decline</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start mb-4">
-                            <a href="javascript:void(0);" class="avatar flex-shrink-0">
-                                <img src="assets/img/users/user-30.jpg" class="rounded-circle border border-2"
-                                    alt="img">
-                            </a>
-                            <div class="ms-2">
-                                <h6 class="fs-14 fw-medium text-truncate mb-1">Lex Murphy requested access to UNIX </h6>
-                                <p class="fs-13 mb-0">Today at 12:00 PM</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start">
-                            <a href="javascript:void(0);" class="avatar flex-shrink-0">
-                                <img src="assets/img/users/user-33.jpg" class="rounded-circle border border-2"
-                                    alt="img">
-                            </a>
-                            <div class="ms-2">
-                                <h6 class="fs-14 fw-medium text-truncate mb-1">Lex Murphy requested access to UNIX </h6>
-                                <p class="fs-13 mb-0">Today at 05:00 PM</p>
                             </div>
                         </div>
                     </div>

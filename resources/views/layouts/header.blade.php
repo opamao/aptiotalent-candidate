@@ -172,7 +172,7 @@
                                      </a>
                                      <a class="dropdown-item d-inline-flex align-items-center p-0 py-2"
                                          href="{{ url('profile-settings') }}">
-                                         <i class="ti ti-circle-arrow-up me-1"></i>Mon compte
+                                         <i class="ti ti-settings me-1"></i>Paramètres
                                      </a>
                                  </div>
                                  <div class="card-footer">

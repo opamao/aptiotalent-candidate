@@ -42,45 +42,6 @@ Route::get('security-settings', function () {
 Route::get('notification-settings', function () {
     return view('profile.notification-settings');
 });
-Route::get('connected-apps', function () {
-    return view('profile.connected-apps');
-});
-Route::get('bussiness-settings', function () {
-    return view('profile.bussiness-settings');
-});
-Route::get('seo-settings', function () {
-    return view('profile.seo-settings');
-});
-Route::get('prefixes', function () {
-    return view('profile.prefixes');
-});
-Route::get('preferences', function () {
-    return view('profile.preferences');
-});
-Route::get('currencies', function () {
-    return view('profile.currencies');
-});
-Route::get('tax-rates', function () {
-    return view('profile.tax-rates');
-});
-Route::get('payment-gateways', function () {
-    return view('profile.payment-gateways');
-});
-Route::get('sms-settings', function () {
-    return view('profile.sms-settings');
-});
-Route::get('sms-template', function () {
-    return view('profile.sms-template');
-});
-Route::get('email-template', function () {
-    return view('profile.email-template');
-});
-Route::get('email-settings', function () {
-    return view('profile.email-settings');
-});
-Route::get('leave-type', function () {
-    return view('profile.leave-type');
-});
 
 //Dashboard companie
 Route::get('employee-dashboard', function () {
@@ -116,6 +77,9 @@ Route::get('job-grid', function () {
 });
 Route::get('candidates-grid', function () {
     return view('jobs.candidates');
+});
+Route::get('job-details', function () {
+    return view('jobs.job-details');
 });
 
 //Blogs
