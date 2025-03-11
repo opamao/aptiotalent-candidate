@@ -36,11 +36,32 @@ Route::get('profile', function () {
 Route::get('profile-settings', function () {
     return view('profile.profile-settings');
 });
-Route::get('security-settings', function () {
-    return view('profile.security-settings');
-});
 Route::get('notification-settings', function () {
     return view('profile.notification-settings');
+});
+Route::get('detail-basique', function () {
+    return view('profile.detail-basique');
+});
+Route::get('resume-profile', function () {
+    return view('profile.resume-profile');
+});
+Route::get('info-pro', function () {
+    return view('profile.info-pro');
+});
+Route::get('emploi-profile', function () {
+    return view('profile.emploi-profile');
+});
+Route::get('education-profile', function () {
+    return view('profile.education-profile');
+});
+Route::get('project-profile', function () {
+    return view('profile.project-profile');
+});
+Route::get('skills-profile', function () {
+    return view('profile.skills-profile');
+});
+Route::get('cv-profile', function () {
+    return view('profile.cv-profile');
 });
 
 //Dashboard companie
