@@ -193,7 +193,7 @@
              <div class="dropdown-menu dropdown-menu-end">
                  <a class="dropdown-item" href="{{ url('profile') }}">Mon Profil</a>
                  <a class="dropdown-item" href="{{ url('profile-settings') }}">Paramètre profil</a>
-                 <a class="dropdown-item" href="{{ url('logout') }}">Se déconnecter</a>
+                 <a class="dropdown-item" href="{{ url('signout') }}">Se déconnecter</a>
              </div>
          </div>
      </div>

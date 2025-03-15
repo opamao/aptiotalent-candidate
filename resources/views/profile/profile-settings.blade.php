@@ -50,7 +50,7 @@
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ url('employee-dashboard') }}"><i class="ti ti-smart-home"></i></a>
+                            <a href="{{ url('index') }}"><i class="ti ti-smart-home"></i></a>
                         </li>
                         <li class="breadcrumb-item">
                             Administration

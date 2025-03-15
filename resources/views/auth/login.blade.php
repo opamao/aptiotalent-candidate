@@ -53,7 +53,7 @@
                     <div class="col-lg-7 col-md-12 col-sm-12">
                         <div class="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap">
                             <div class="col-md-7 mx-auto vh-100">
-                                <form action="{{ url('employee-dashboard') }}" class="vh-100">
+                                <form action="{{ url('custom-login') }}" class="vh-100" method="POST">
                                     @csrf
                                     <div class="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
                                         <div class=" mx-auto mb-5 text-center">
@@ -61,6 +61,8 @@
                                                 alt="Logo">
                                         </div>
                                         <div class="">
+                                            @include('layouts.status')
+                                            {{ Auth::user() }}
                                             <div class="text-center mb-3">
                                                 <h2 class="mb-2">{{ __('messages.signin') }}</h2>
                                                 <p class="mb-0">
@@ -70,7 +72,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('messages.address_email') }}</label>
                                                 <div class="input-group">
-                                                    <input name="email" type="email"
+                                                    <input name="email" type="email" required
                                                         class="form-control border-end-0">
                                                     <span class="input-group-text border-start-0">
                                                         <i class="ti ti-mail"></i>
@@ -80,19 +82,19 @@
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('messages.password') }}</label>
                                                 <div class="pass-group">
-                                                    <input name="password" type="password"
+                                                    <input name="password" type="password" required
                                                         class="pass-input form-control">
                                                     <span class="ti toggle-password ti-eye-off"></span>
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mb-3">
                                                 <div class="d-flex align-items-center">
-                                                    <div class="form-check form-check-md mb-0">
+                                                    {{-- <div class="form-check form-check-md mb-0">
                                                         <input name="souvenir" class="form-check-input" id="remember_me"
                                                             type="checkbox">
                                                         <label for="remember_me"
                                                             class="form-check-label mt-0">{{ __('messages.remember') }}</label>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="text-end">
                                                     <a href="{{ url('forgot') }}" class="link-danger">

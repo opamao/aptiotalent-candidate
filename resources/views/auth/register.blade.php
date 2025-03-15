@@ -49,22 +49,54 @@
                     <div class="col-lg-7 col-md-12 col-sm-12">
                         <div class="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap">
                             <div class="col-md-7 mx-auto vh-100">
-                                <form action="{{ url('/') }}" class="vh-100">
+                                <form action="{{ url('custom-register') }}" class="vh-100" method="POST">
+                                    @csrf
                                     <div class="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
                                         <div class=" mx-auto mb-5 text-center">
                                             <img src="{{ URL::asset('') }}assets/img/logo.svg" class="img-fluid"
                                                 alt="Logo">
                                         </div>
                                         <div class="">
+                                            @include('layouts.status')
                                             <div class="text-center mb-3">
                                                 <h2 class="mb-2">S'inscrire</h2>
                                                 <p class="mb-0">Veuillez saisir vos coordonnées pour vous inscrire</p>
                                             </div>
                                             <div class="mb-3">
+                                                <label class="form-label">Sexe</label>
+                                                <div
+                                                    class="card-body d-sm-flex align-items-center justify-content-between">
+                                                    <div class="form-check form-check-lg">
+                                                        <input class="form-check-input" value="Homme" id="Radio-lg"
+                                                            type="radio" name="sexe" id="Radio-lg" checked>
+                                                        <label class="form-check-label" for="Radio-lg">
+                                                            Homme
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-lg">
+                                                        <input class="form-check-input" value="Femme" type="radio"
+                                                            name="sexe" id="Radio-lg">
+                                                        <label class="form-check-label" for="Radio-lg">
+                                                            Femme
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label class="form-label">Nom</label>
                                                 <div class="input-group">
-                                                    <input type="text" value=""
-                                                        class="form-control border-end-0">
+                                                    <input name="nom" required type="text" value=""
+                                                        class="form-control">
+                                                    <span class="input-group-text border-start-0">
+                                                        <i class="ti ti-user"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Prénom</label>
+                                                <div class="input-group">
+                                                    <input name="prenom" required type="text" value=""
+                                                        class="form-control">
                                                     <span class="input-group-text border-start-0">
                                                         <i class="ti ti-user"></i>
                                                     </span>
@@ -73,41 +105,93 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Adresse email</label>
                                                 <div class="input-group">
-                                                    <input type="text" value=""
-                                                        class="form-control border-end-0">
+                                                    <input type="email" required name="email" class="form-control">
                                                     <span class="input-group-text border-start-0">
                                                         <i class="ti ti-mail"></i>
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Mot de passe</label>
-                                                <div class="pass-group">
-                                                    <input type="password" class="pass-input form-control">
-                                                    <span class="ti toggle-password ti-eye-off"></span>
+                                                <label class="form-label">Téléphone</label>
+                                                <div class="input-group">
+                                                    <input type="tel" required name="phone"
+                                                        class="form-control">
+                                                    <span class="input-group-text border-start-0">
+                                                        <i class="ti ti-phone"></i>
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Confirmez le mot de passe</label>
-                                                <div class="pass-group">
-                                                    <input type="password" class="pass-inputs form-control">
-                                                    <span class="ti toggle-passwords ti-eye-off"></span>
+                                                <label class="form-label">Lieu d'habitation</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="habitation" class="form-control">
+                                                    <span class="input-group-text border-start-0">
+                                                        <i class="ti ti-home"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="form-label">Expériences</label>
+                                                    <div class="input-group">
+                                                        <input placeholder="Par an Ex: 1" type="number"
+                                                            class="form-control" name="experience_an">
+                                                        <span class="input-group-text border-start-0">
+                                                            <i class="ti ti-home"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="form-label text-white">Mois</label>
+                                                    <div class="input-group">
+                                                        <input placeholder="Par mois Ex: 0" type="number"
+                                                            class="form-control" name="experience_mois">
+                                                        <span class="input-group-text border-start-0">
+                                                            <i class="ti ti-home"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Salaire annuel</label>
+                                                    <div class="input-group">
+                                                        <input placeholder="Ex: 12000000" type="number"
+                                                            class="form-control" name="salaire">
+                                                        <span class="input-group-text border-start-0">
+                                                            <i class="ti ti-wallet"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label class="form-label">Mot de passe</label>
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control" name="password"
+                                                        required>
+                                                    <span class="input-group-text border-start-0">
+                                                        <i class="ti toggle-password ti-eye-off"></i>
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mb-3">
                                                 <div class="d-flex align-items-center">
                                                     <div class="form-check form-check-md mb-0">
                                                         <input class="form-check-input" id="remember_me"
-                                                            type="checkbox">
+                                                            type="checkbox" checked disabled>
                                                         <label for="remember_me"
-                                                            class="form-check-label text-dark mt-0">Accepter <span
-                                                                class="text-primary">les conditions générales et la
-                                                                confidentialité</span></label>
+                                                            class="form-check-label text-dark mt-0">Accepter
+                                                            <a href="#" target="_blank">
+                                                                <span class="text-primary">les conditions
+                                                                    générales et la
+                                                                    confidentialité
+                                                                </span>
+                                                            </a>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+                                                <button type="submit"
+                                                    class="btn btn-primary w-100">S'inscrire</button>
                                             </div>
                                             <div class="text-center">
                                                 <h6 class="fw-normal text-dark mb-0">Vous avez déjà une compte?
@@ -119,7 +203,6 @@
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>

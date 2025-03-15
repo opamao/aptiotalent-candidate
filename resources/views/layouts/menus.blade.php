@@ -84,10 +84,7 @@
                      <ul>
                          <li class="submenu">
                              <a href="javascript:void(0);"
-                                 class="{{ Request::is('admin-dashboard') ? 'active subdrop' : '' }}
-                                 {{ Request::is('employee-dashboard') ? 'active subdrop' : '' }}
-                                  {{ Request::is('deals-dashboard') ? 'active subdrop' : '' }}
-                                   {{ Request::is('leads-dashboard') ? 'active subdrop' : '' }}">
+                                 class="{{ Request::is('index') ? 'active subdrop' : '' }}">
                                  <i class="ti ti-smart-home"></i>
                                  <span>Tableau de bord</span>
                                  {{-- <span class="badge badge-danger fs-10 fw-medium text-white p-1">Hot</span> --}}
@@ -95,8 +92,8 @@
                              </a>
                              <ul>
                                  <li>
-                                     <a href="{{ url('employee-dashboard') }}"
-                                         class="{{ Request::is('employee-dashboard') ? 'active' : '' }}">Tableau de bord</a>
+                                     <a href="{{ url('index') }}"
+                                         class="{{ Request::is('index') ? 'active' : '' }}">Tableau de bord</a>
                                  </li>
                              </ul>
                          </li>

@@ -1,13 +1,25 @@
 <?php
 
+use App\Http\Controllers\AuthentificationController;
 use App\Http\Controllers\LanguageController;
 use App\Models\Faqs;
 use Illuminate\Support\Facades\Route;
 
-//Authentification
+
+Route::get('index', [AuthentificationController::class, 'dashboard']);
+Route::get('login', [AuthentificationController::class, 'index']);
+Route::post('custom-login', [AuthentificationController::class, 'login']);
+Route::post('custom-register', [AuthentificationController::class, 'register']);
+Route::get('signout', [AuthentificationController::class, 'signOut']);
+
 Route::get('/', function () {
+    if (session()->has('idcandidat')) {
+        return redirect()->intended('index')->withSuccess('Bon retour');
+    }
     return view('auth.login');
 });
+
+//Authentification
 Route::get('register', function () {
     return view('auth.register');
 });
@@ -62,11 +74,6 @@ Route::get('skills-profile', function () {
 });
 Route::get('cv-profile', function () {
     return view('profile.cv-profile');
-});
-
-//Dashboard companie
-Route::get('employee-dashboard', function () {
-    return view('dashboard.entreprises.employee-dashboard');
 });
 
 // Chat & Call
