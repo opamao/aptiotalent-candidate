@@ -86,22 +86,21 @@ class AuthentificationController extends Controller
 
         if ($user && Hash::check($credentials['password'], $user->password_cand)) {
             if ($user->status_cand == 2) {
-                return back()->withInput()->withErrors(["Votre compte est inactive. Veuillez contacter l'admin pour activer votre compte."]);
+                return back()->withInput()->withErrors(["Votre compte est inactif. Veuillez contacter l'admin pour l'activer."]);
             } else {
-                // Garde les informations dans la session
-                Auth::login($user);
+                // Utiliser le guard 'candidat'
+                Auth::guard('candidat')->login($user);
 
                 return redirect()->intended('index')->withSuccess('Bon retour');
             }
         } else {
-
             return back()->withInput()->withErrors(['E-mail ou mot de passe incorrect.']);
         }
     }
 
     public function dashboard()
     {
-        if (Auth::check()) {
+        if (Auth::guard('candidat')->check()) {
             return view('dashboard.dashboard');
         } else {
             return view('auth.login');
@@ -110,8 +109,9 @@ class AuthentificationController extends Controller
 
     public function signOut()
     {
-        Session::flush();
-        Auth::logout();
+        Auth::guard('candidat')->logout();
+        Session::invalidate();
+        Session::regenerateToken();
 
         return Redirect('/');
     }

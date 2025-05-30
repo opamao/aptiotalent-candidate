@@ -177,7 +177,7 @@
                                  </div>
                                  <div class="card-footer">
                                      <a class="dropdown-item d-inline-flex align-items-center p-0 py-2"
-                                         href="{{ url('logout') }}">
+                                         href="{{ url('signout') }}">
                                          <i class="ti ti-login me-2"></i>Se déconnecter
                                      </a>
                                  </div>
